@@ -3,6 +3,7 @@ import Layout from "../components/layout/Layout";
 import Inicio from "../pages/Inicio";
 import NotFound from "../pages/NotFound";
 import Usuarios from "../pages/Usuarios";
+import UsuarioFormPage from "../pages/UsuarioFormPage";
 
 export const router = createBrowserRouter([
   {
@@ -11,6 +12,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Inicio /> },
       { path: "usuarios", element: <Usuarios /> },
+      { path: "usuarios/nuevo", element: <UsuarioFormPage /> },
+      { path: "usuarios/editar/:id", element: <UsuarioFormPage /> },
       { path: "*", element: <NotFound /> }
     ],
   }
