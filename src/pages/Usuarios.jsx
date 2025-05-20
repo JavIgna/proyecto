@@ -10,7 +10,6 @@ export default function Inicio() {
         <AccountCircleIcon style={{ verticalAlign: 'middle', marginRight: '8px', fontSize: '48px' }} />
         Módulo de Usuarios:</h1>
       <Link to="/usuarios/nuevo" className="btn btn-primary">Crear Nuevo Usuario</Link>
-      <p className="lead">Tabla Usuarios</p>
 
       <TablaUsuarios />
 
