@@ -1,9 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { obtenerUsuarios, usuarioReducer } from "../../features/usuarios";
+import { usuarioSeleccionado } from "../../features/usuarios/slice";
+import { useNavigate } from "react-router-dom";
 
 const TablaUsuarios = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { data: usuarios, status, error } = useSelector((estado) => estado.usuarios)
   console.log(usuarios)
 
@@ -12,6 +16,11 @@ const TablaUsuarios = () => {
       dispatch(obtenerUsuarios())
     }
   }, [dispatch, status])
+
+  const manejarEditarUsuario = (usuario) => {
+    dispatch(usuarioSeleccionado(usuario));
+    navigate(`/usuarios/editar/${usuario.id}`)
+  }
 
   return (
     <div className="table-responsive card p-3 mt-3">
