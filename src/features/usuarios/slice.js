@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { obtenerUsuarios } from "./thunks";
+import { obtenerUsuarios, obtenerUsuariosPorId } from "./thunks";
 
 const usuariosSlice = createSlice({
   name: "usuarios",
@@ -7,6 +7,9 @@ const usuariosSlice = createSlice({
     data: [],
     status: "idle",
     error: null,
+    usuarioSeleccionado : null,
+    statusUsuario : "idle",
+    errorUsuario :null
   },
   reducers: {
     usuarioSeleccionado: (estado, accion) => {
@@ -28,7 +31,17 @@ const usuariosSlice = createSlice({
       .addCase(obtenerUsuarios.rejected, (estado, accion) => {
         estado.status = "fallado";
         estado.error = accion.error.message;
-      });
+      }).addCase(obtenerUsuariosPorId.pending, (estado) => {
+        estado.statusUsuario = "cargando";
+      })
+      .addCase(obtenerUsuariosPorId.fulfilled, (estado, accion) => {
+        estado.statusUsuario = "terminado";
+        estado.usuarioSeleccionado = accion.payload;
+      })
+      .addCase(obtenerUsuariosPorId.rejected, (estado, accion) => {
+        estado.statusUsuario = "fallado";
+        estado.errorUsuario = accion.error.message;
+      });;
   },
 });
 

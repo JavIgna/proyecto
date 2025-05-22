@@ -1,46 +1,57 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { obtenerUsuariosPorId } from "../../features/usuarios";
 
 export default function FormularioUsuario() {
-  const { id } = useParams()
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
-  console.log(id)
+  const { usuarioSeleccionado: usuario, statusUsuario: estado } = useSelector((estado) => estado.usuarios);
 
-  const [usuario, setUsuario] = useState(null)
-  const [rol, setRol] = useState("Usuario")
-
-  const usuarioEjemplo = {
-    nombreCompleto: "JUAN JOSE RAMIREZ PALMA",
-    correo: "JUAN.RAMIREZ@CORREO.CL", rol: "Administrador"
-  }
+  const [rol, setRol] = useState("Usuario");
 
   useEffect(() => {
-    // Como no estamos consumiendo datos, setearemos datos para ejemplicar.
-    if (id) {
-      setUsuario(usuarioEjemplo)
-      setRol(usuarioEjemplo.rol)
+    if (id && estado === "idle") {
+      dispatch(obtenerUsuariosPorId(id));
     }
-  }, [id])
+  }, [dispatch, estado, id, usuario]);
+
+ 
+  useEffect(() => {
+    if (usuario) {
+      setRol(usuario.rol || "Usuario");
+    }
+  }, [usuario]);
 
   const manejarCambiosRol = (e) => {
-    setRol(e.target.value)
-  }
+    setRol(e.target.value);
+  };
 
   return (
     <form>
       <div className="form-group">
         <label htmlFor="correo">Correo</label>
-        <input type="email" className="form-control" id="correo"
-          placeholder="Ingresa tu correo" defaultValue={usuario?.correo || ""} />
+        <input
+          type="email"
+          className="form-control"
+          id="correo"
+          placeholder="Ingresa tu correo"
+          defaultValue={usuario?.email || ""}
+        />
       </div>
       <div className="form-group">
         <label htmlFor="nombreCompleto">Nombre Completo</label>
-        <input type="text" className="form-control" id="nombreCompleto"
-          placeholder="Ingresa tu nombre y apellido" defaultValue={usuario?.nombreCompleto || ""} />
+        <input
+          type="text"
+          className="form-control"
+          id="nombreCompleto"
+          placeholder="Ingresa tu nombre y apellido"
+          defaultValue={usuario?.name || ""}
+        />
       </div>
       <div className="form-group my-4">
-        <select className="form-select" value={rol}
-          onChange={manejarCambiosRol}>
+        <select className="form-select" value={rol} onChange={manejarCambiosRol}>
           <option value="Administrador">Administrador</option>
           <option value="Usuario">Usuario</option>
         </select>
@@ -49,5 +60,5 @@ export default function FormularioUsuario() {
         {id ? "Editar" : "Crear"}
       </button>
     </form>
-  )
+  );
 }
