@@ -11,6 +11,7 @@ export default function FormularioUsuario() {
 
   const [rol, setRol] = useState("Usuario");
 
+
   useEffect(() => {
     if (id && estado === "idle") {
       dispatch(obtenerUsuariosPorId(id));
@@ -20,11 +21,25 @@ export default function FormularioUsuario() {
  
   useEffect(() => {
     if (usuario) {
-      setRol(usuario.rol || "Usuario");
+      setRol(usuario.rol || "admin");
     }
   }, [usuario]);
 
   const manejarCambiosRol = (e) => {
+    setRol(e.target.value);
+  };
+
+
+  const [estadoUsuario, setEstado] = useState("Activo");
+
+
+  useEffect(() => {
+    if (usuario) {
+      setEstado(usuario.estado || "Activo");
+    }
+  }, [usuario]);
+
+  const manejarCambiosEstado = (e) => {
     setRol(e.target.value);
   };
 
@@ -37,23 +52,22 @@ export default function FormularioUsuario() {
           className="form-control"
           id="correo"
           placeholder="Ingresa tu correo"
-          defaultValue={usuario?.email || ""}
+          defaultValue={usuario?.correo || ""}
         />
       </div>
       <div className="form-group">
-        <label htmlFor="nombreCompleto">Nombre Completo</label>
-        <input
-          type="text"
-          className="form-control"
-          id="nombreCompleto"
-          placeholder="Ingresa tu nombre y apellido"
-          defaultValue={usuario?.name || ""}
-        />
+        <label htmlFor="nombreCompleto">Estado</label>
+       
+
+        <select className="form-select" value={estadoUsuario} onChange={manejarCambiosEstado}>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
       </div>
       <div className="form-group my-4">
         <select className="form-select" value={rol} onChange={manejarCambiosRol}>
-          <option value="Administrador">Administrador</option>
-          <option value="Usuario">Usuario</option>
+          <option value="admin">Administrador</option>
+          <option value="doctor">Doctor</option>
         </select>
       </div>
       <button type="submit" className="btn btn-primary">

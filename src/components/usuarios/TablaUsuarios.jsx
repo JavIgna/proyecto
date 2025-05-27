@@ -19,7 +19,7 @@ const TablaUsuarios = () => {
 
   const manejarEditarUsuario = (usuario) => {
     dispatch(usuarioSeleccionado(usuario));
-    navigate(`/usuarios/editar/${usuario.id}`)
+    navigate(`/usuarios/editar/${usuario._id}`)
   }
 
   return (
@@ -34,8 +34,8 @@ const TablaUsuarios = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>NOMBRE COMPLETO</th>
-              <th>CORREO</th>
+              <th>USUARIO</th>
+              <th>ROL</th>
               <th>ESTADO</th>
               <th>OPCIONES</th>
             </tr>
@@ -43,11 +43,11 @@ const TablaUsuarios = () => {
           <tbody>
             {usuarios.map((u) => {
               return (
-                <tr key={u.id}>
-                  <td>{u.id}</td>
-                  <td>{u.name}</td>
-                  <td>{u.email}</td>
-                  <td>Activo</td>
+                <tr key={u._id}>
+                  <td>{u._id}</td>
+                  <td>{u.correo}</td>
+                  <td>{u.rol}</td>
+                  <td>{u.estado}</td>
                   <td>
                     <button
                       className="btn btn-sm btn-warning"
