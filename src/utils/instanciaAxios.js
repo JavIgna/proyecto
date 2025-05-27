@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "../app/store";
 
 const instanciaAxios = axios.create({
-  baseURL: "/api",
+  baseURL: "http://localhost:3000/api",
 });
 
 instanciaAxios.interceptors.request.use((config) => {
@@ -13,3 +13,7 @@ instanciaAxios.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Luego usamos la instancia de esta forma:
+
+// respuesta = await instanciaAxios.get("/usuarios")

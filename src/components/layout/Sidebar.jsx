@@ -7,7 +7,7 @@ export default function Sidebar() {
       style={{ width: "250px" }}>
       <ul className="nav flex-column">
         <li className="nav-item">
-          <Link className="nav-link" to="/">Inicio</Link>
+          <Link className="nav-link" to="/home">Inicio</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/usuarios">Usuarios</Link>

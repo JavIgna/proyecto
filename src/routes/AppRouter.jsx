@@ -4,19 +4,34 @@ import Inicio from "../pages/Inicio";
 import NotFound from "../pages/NotFound";
 import Usuarios from "../pages/Usuarios";
 import UsuarioFormPage from "../pages/UsuarioFormPage";
+import RedireccionLogin from "./RedireccionLogin";
+import LoginPage from "../pages/Login";
+import RutasPrivadas from "./RutasPrivadas";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <RedireccionLogin /> // Redirigir segun autentificacións
+  },
+  {
+    path: "login",
+    element: <LoginPage />
+  },
+  {
+    element: <RutasPrivadas />,
     children: [
-      { index: true, element: <Inicio /> },
-      { path: "usuarios", element: <Usuarios /> },
-      { path: "usuarios/nuevo", element: <UsuarioFormPage /> },
-      { path: "usuarios/editar/:id", element: <UsuarioFormPage /> },
-      { path: "*", element: <NotFound /> }
-    ],
-  }
-])
+      {
+        path: "/",
+        element: <Layout />,
+        children: [
+          { path: "home", element: <Inicio /> },
+          { path: "usuarios", element: <Usuarios /> },
+          { path: "usuarios/nuevo", element: <UsuarioFormPage /> },
+          { path: "usuarios/editar/:id", element: <UsuarioFormPage /> },
 
-// Modificar router para que renderice page de usuarios y corregir enrutamiento
+        ],
+      }
+    ]
+  },
+  { path: "*", element: <NotFound /> }
+])
