@@ -49,12 +49,12 @@ const TablaUsuarios = () => {
                   <td>{u.email}</td>
                   <td>Activo</td>
                   <td>
-                                     <button
-                    className="btn btn-sm btn-warning"
-                    onClick={() => manejarEditarUsuario(u)}
-                  >
-                    Editar
-                  </button>
+                    <button
+                      className="btn btn-sm btn-warning"
+                      onClick={() => manejarEditarUsuario(u)}
+                    >
+                      Editar
+                    </button>
                   </td>
                 </tr>
               )
