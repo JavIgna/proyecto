@@ -16,7 +16,10 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (token) navigate('/');
+    if (token) {
+      localStorage.setItem("authToken", token)
+      navigate('/')
+    };
   }, [token, navigate]);
 
   return (
